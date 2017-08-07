@@ -16,7 +16,7 @@ namespace TfsBot.Common.Bot
                 .FirstOrDefault(i => i.Mentioned.Id == id)?
                 .Text;
             mentionedText = StripOutTags(mentionedText);
-            return Regex.Replace(result, mentionedText, "", RegexOptions.IgnoreCase);
+            return Regex.Replace(result, mentionedText ?? string.Empty, string.Empty, RegexOptions.IgnoreCase);
         }
 
         private static string StripOutTags(string text)
