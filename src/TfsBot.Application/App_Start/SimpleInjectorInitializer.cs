@@ -38,7 +38,11 @@ namespace TfsBot.App_Start
         {
 			var configuration = new Configuration();
 			container.RegisterSingleton(configuration);
-			if (configuration.StorageConnectionString != null)
+            if (configuration.MongoConnectionString != null)
+            {
+                container.Register<IRepository>(() => new MongoRepository(configuration.MongoConnectionString, configuration.MongoDbName), Lifestyle.Scoped);
+            }
+            else if (configuration.StorageConnectionString != null)
 			{
 				container.Register<IRepository>(() => new Repository(configuration.StorageConnectionString), Lifestyle.Scoped);
 			}

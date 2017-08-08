@@ -5,6 +5,9 @@ namespace TfsBot
 {
     public class Configuration
     {
+        public string MongoConnectionString => Get("MongoConnectionString");
+        public string MongoDbName => Get("MongoDbName");
+        
         public string StorageConnectionString => Get("StorageConnectionString");
         public string ApplicationInsightsKey => Get("ApplicationInsightsKey");
         public string Url => Get("Url");

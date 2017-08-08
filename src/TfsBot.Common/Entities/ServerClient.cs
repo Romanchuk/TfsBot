@@ -1,4 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace TfsBot.Common.Entities
 {
@@ -11,6 +14,11 @@ namespace TfsBot.Common.Entities
         public ServerClient()
         {
         }
+
+        [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfDefault]
+        public string Id { get; set; }
 
         public string ServiceId => PartitionKey;
 
