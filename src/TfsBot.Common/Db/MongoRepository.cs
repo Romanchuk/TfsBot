@@ -42,7 +42,7 @@ namespace TfsBot.Common.Db
 
         public List<ServerClient> GetServerClients(string serverId)
         {
-            var filterServiceId = Builders<ServerClient>.Filter.Eq(c => c.ServiceId, serverId);
+            var filterServiceId = Builders<ServerClient>.Filter.Eq(c => c.PartitionKey, serverId);
 
             var result =
                 _serviceClientsCollection.FindSync(filterServiceId).ToList();
@@ -82,8 +82,8 @@ namespace TfsBot.Common.Db
 
         public async Task RemoveServerClientAsync(ServerClient client)
         {
-            var filterPartitionKey = Builders<ServerClient>.Filter.Eq(c => c.ServiceId, client.ServiceId);
-            var filterRowKey = Builders<ServerClient>.Filter.Eq(c => c.UserId, client.UserId);
+            var filterPartitionKey = Builders<ServerClient>.Filter.Eq(c => c.PartitionKey, client.ServiceId);
+            var filterRowKey = Builders<ServerClient>.Filter.Eq(c => c.RowKey, client.UserId);
             var filter = Builders<ServerClient>.Filter.And(filterPartitionKey, filterRowKey);
 
             await _serviceClientsCollection.DeleteOneAsync(filter);
